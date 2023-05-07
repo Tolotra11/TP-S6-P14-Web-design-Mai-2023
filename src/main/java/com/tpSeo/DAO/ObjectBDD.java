@@ -686,5 +686,67 @@ public class ObjectBDD {
         }
         return result;
     }
+    public int count(Connection con) throws Exception{
+        boolean conNull = Util.connectionNull(con);
+        int count = 0;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        try{
+            if(conNull){
+                con = Util.getConnection();
+            }
+            stmt = con.prepareStatement("SELECT count(*) as count FROM "+this.getNomDeTable());
+            res = stmt.executeQuery();
+            if(res.next()){
+                count = res.getInt("count");
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+        finally{
+            if(res != null){
+                res.close();
+            }
+            if(stmt != null){
+                stmt.close();
+            }
+            if(conNull){
+                con.close();
+            }
+        }
+        return count;
+    }
+    public int count(String whereClause,Connection con) throws Exception{
+        boolean conNull = Util.connectionNull(con);
+        int count = 0;
+        PreparedStatement stmt = null;
+        ResultSet res = null;
+        try{
+            if(conNull){
+                con = Util.getConnection();
+            }
+            stmt = con.prepareStatement("SELECT count(*) as count FROM "+this.getNomDeTable()+" WHERE "+whereClause);
+            res = stmt.executeQuery();
+            if(res.next()){
+                count = res.getInt("count");
+            }
+        }
+        catch(Exception e){
+            throw e;
+        }
+        finally{
+            if(res != null){
+                res.close();
+            }
+            if(stmt != null){
+                stmt.close();
+            }
+            if(conNull){
+                con.close();
+            }
+        }
+        return count;
+    }
     
 }
