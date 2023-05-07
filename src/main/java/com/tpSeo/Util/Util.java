@@ -9,6 +9,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -22,9 +26,10 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tpSeo.model.Image;
+
 
 /**
  *
@@ -33,8 +38,8 @@ import com.tpSeo.model.Image;
 public class Util {
     public static Connection getConnection() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
        Class.forName("org.postgresql.Driver");
-       //Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://postgresql-tolotra11.alwaysdata.net/tolotra11_seo", "tolotra11", "P14A_90_Tolotra");   
-         Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mini_projet_s6", "postgres", "1234");   
+        Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://postgresql-tolotra11.alwaysdata.net/tolotra11_mini_projet_s6", "tolotra11", "P14A_90_Tolotra");   
+        // Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mini_projet_s6", "postgres", "1234");   
         return connectionSql;
         
     }
@@ -161,19 +166,18 @@ public class Util {
         
     }
     public static void createImage(MultipartFile file,String dirName) throws Exception {
-        String name = "default.png";
+        String name = "";
         try {
-            File dir = new File(System.getProperty("user.dir") + "/src/main/resources/static/"+dirName);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
             if (file != null && !file.getOriginalFilename().equalsIgnoreCase("")) {
-                name = file.getOriginalFilename();
+                Path dir = Paths.get("src/main/resources/static/"+dirName);
+                if(!Files.exists(dir)){
+                    Files.createDirectories(dir);
+                }
+                name = StringUtils.cleanPath(file.getOriginalFilename());
+                Path path = Paths.get("src/main/resources/static/"+dirName+"/"+name);
+                Files.copy(file.getInputStream(),  path, StandardCopyOption.REPLACE_EXISTING);
             }
-            File dest = new File(dir, name);
-            if (!file.getOriginalFilename().equalsIgnoreCase("")) {
-                file.transferTo(dest);
-            }
+            
         } catch (Exception e) {
             throw e;
         }

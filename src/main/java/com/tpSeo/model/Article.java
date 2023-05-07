@@ -3,12 +3,16 @@ package com.tpSeo.model;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.web.multipart.MultipartFile;
 import com.tpSeo.DAO.ObjectBDD;
+import com.tpSeo.DAO.Pageable;
 import com.tpSeo.Util.Util;
 
 public class Article extends ObjectBDD{
@@ -214,4 +218,5 @@ public class Article extends ObjectBDD{
             }
         }
     }
+    
 }
