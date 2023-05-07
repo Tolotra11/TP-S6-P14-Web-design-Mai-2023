@@ -33,12 +33,6 @@ INSERT INTO categorie VALUES(DEFAULT,'Produit');
 INSERT INTO categorie VALUES(DEFAULT,'Publicité');
 INSERT INTO categorie VALUES(DEFAULT,'Annonce');
 
-CREATE OR REPLACE View v_article AS 
-SELECT a.*,nomCat,nom,prenom,recentImage(a.id) AS nomImage FROM article a 
-JOIN categorie c 
-ON a.categorieId = c.id
-JOIN admin ad
-ON a.Adminid = ad.id;
 
 INSERT INTO Admin VALUES(DEFAULT,'Ralijaona','Tolotra','Admin@admin.mg',md5('root'));
 
@@ -48,3 +42,13 @@ ALTER COLUMN dateImage TYPE timestamp;
 CREATE OR REPLACE FUNCTION recentImage(Integer) RETURNS VARCHAR AS $$
   SELECT image FROM image WHERE articleId=$1 ORDER BY dateImage DESC LIMIT 1;
 $$ LANGUAGE SQL;
+
+CREATE OR REPLACE View v_article AS 
+SELECT a.*,nomCat,nom,prenom,recentImage(a.id) AS nomImage FROM article a 
+JOIN categorie c 
+ON a.categorieId = c.id
+JOIN admin ad
+ON a.Adminid = ad.id;
+
+ALTER TABLE article 
+ALTER COLUMN titre TYPE text;

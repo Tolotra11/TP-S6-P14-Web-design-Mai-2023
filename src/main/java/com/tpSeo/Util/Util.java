@@ -38,8 +38,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class Util {
     public static Connection getConnection() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
        Class.forName("org.postgresql.Driver");
-       //Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://postgresql-tolotra11.alwaysdata.net/tolotra11_seo", "tolotra11", "P14A_90_Tolotra");   
-         Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mini_projet_s6", "postgres", "1234");   
+        Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://postgresql-tolotra11.alwaysdata.net/tolotra11_mini_projet_s6", "tolotra11", "P14A_90_Tolotra");   
+        // Connection connectionSql = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mini_projet_s6", "postgres", "1234");   
         return connectionSql;
         
     }
