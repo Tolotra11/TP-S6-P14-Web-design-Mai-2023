@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 
 import com.tpSeo.DAO.ObjectBDD;
+import com.tpSeo.DAO.Pageable;
 import com.tpSeo.Util.Util;
 
 public class V_article extends ObjectBDD{
@@ -21,6 +22,8 @@ public class V_article extends ObjectBDD{
     private String prenom;
     private String titleInUrl;
     private Image image;
+    private String nomImage;
+    
     public Image getImage(Connection con) throws Exception {
         if(this.image == null){
             Image nIm = new Image();
@@ -140,5 +143,33 @@ public class V_article extends ObjectBDD{
     }
     public Image getImage() {
         return image;
+    }
+    public String getNomImage() {
+        return nomImage;
+    }
+    public void setNomImage(String nomImage) {
+        this.nomImage = nomImage;
+    }
+    public int numberOfPage(int pageSize,Connection con) throws Exception{
+        int nbPage =(int)Math.ceil((double)this.count("etat = 1",con)/(double)pageSize);
+        return nbPage;
+    }
+    public HashMap<String,Object> getArticleFront(int pageSize,Pageable page) throws Exception{
+        HashMap<String,Object> hash = new HashMap<>();
+        Connection con = null;
+        try{
+            con = Util.getConnection();
+            hash.put("article", this.find(page, con));
+            hash.put("nbPage",numberOfPage(pageSize, con));
+        }
+        catch(Exception e){
+            throw e;
+        }
+        finally{
+            if(con != null){
+                con.close();
+            }
+        }
+        return hash;
     }
 }

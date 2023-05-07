@@ -1,32 +1,44 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" th:content="${article.resume}">
-        <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-        <link rel="stylesheet" th:href="@{/assets/front/fonts/stylesheet.css}">
-        <link rel="stylesheet" th:href="@{/assets/front/css/style.css}">
-        <link rel="stylesheet" th:href="@{/assets/front/css/bootstrap.css}">
-        <link rel="stylesheet" th:href="@{/assets/front/css/sidebar.css}">
-        <title th:text="${article.titre}"></title>
-    </head>
-    <body> 
-    <div th:include="sidebar"></div>       
-      <div class="dashboard-sf" style="margin-left: 35px;">
-            <div class="memo-container container">
-                <div class="heading-sf row">
-                    <div class="page-name col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h1 th:text="${article.titre}"></h1>
-                    </div>
-                </div>
-                <div class="contenue">
-                    <th:block th:utext="${article.contenu}">
-                    </th:block>
-                </div>
-        </div>
-    </div>
+<th:block th:include="HeadFO"></th:block>
+    <div id="wrapper">
+        <section class="section single-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                        <div class="page-wrapper">
+                            <div class="blog-title-area text-center">
+                                <ol class="breadcrumb hidden-xs-down">
+                                    <li class="breadcrumb-item">Home</li>
+                                    <li class="breadcrumb-item">Article</li>
+                                    <li class="breadcrumb-item active" th:text="${article.titre}"></li>
+                                </ol>
 
-    </body>
-</html>
+                                <span class="color-orange"><a th:text="${article.nomCat}"></a></span>
+
+                                <h1 th:text="${article.titre}"></h1>
+
+                                <div class="blog-meta big-meta">
+                                    <small class="firstsmall" ><a class="bg-orange"  th:text="${article.nomCat}" title="">Gadgets</a></small>
+                                    <small th:text="${article.datePublication}"></small>
+                                    <small th:text="'by '+${article.nom}+' '+${article.prenom}"></small>
+                                </div><!-- end meta -->
+
+                            </div><!-- end title -->
+
+                            <div class="single-post-media">
+                                <img th:src="'/uploads/images/'+${article.nomImage}" alt="" class="img-fluid">
+                            </div><!-- end media -->
+
+                            <div class="blog-content">  
+                                <div class="pp" th:utext="${article.contenu}">
+                                    
+                                </div><!-- end pp -->
+
+                                 </div>
+                            </div><!-- end widget -->
+                        </div><!-- end sidebar -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+        </section>
+
+    </div>
+<th:block th:include="FootFO"></th:block>    

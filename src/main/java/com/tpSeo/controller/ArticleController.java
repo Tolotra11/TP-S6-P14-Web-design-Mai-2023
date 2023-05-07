@@ -1,6 +1,5 @@
 package com.tpSeo.controller;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -12,10 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tpSeo.DAO.Pageable;
+import com.tpSeo.DAO.Sort;
 import com.tpSeo.Util.Util;
 import com.tpSeo.model.Article;
 import com.tpSeo.model.Categorie;
@@ -62,15 +62,15 @@ public class ArticleController {
     }
     @GetMapping("/articlesAdmin")
     public String myArticle(HttpSession session,Model model) throws Exception{
-        V_article article = new V_article();
-        article.setAdminId((Integer)session.getAttribute("idAdmin"));
-        model.addAttribute("article",new V_article().find(null));
+        if(Util.isLog(session, "idAdmin")){
+            V_article article = new V_article();
+            article.setAdminId((Integer)session.getAttribute("idAdmin"));
+            model.addAttribute("article",new V_article().find(null));
+        }
+        else{
+            return "redirect:/login";
+        }
         return "mesArticles";
-    }
-    @GetMapping("/articles")
-    public String listeArticle(Model model) throws Exception{
-        model.addAttribute("article",new V_article().find(null));
-        return "articles";
     }
     @GetMapping("/articles/*-{idArticle}")
     public String detailArticle(@PathVariable("idArticle") int idArticle,Model model) throws Exception{
@@ -142,5 +142,20 @@ public class ArticleController {
         else{
             return "redirect:/login";
         }
+    }
+//---------------------------Front Office--------------------------------------
+    @GetMapping("/articles")
+    public String listeArticle(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size, @RequestParam(defaultValue = "datePublication") String sort,@RequestParam(defaultValue = "DESC") String direction,Model model) throws Exception{
+        Sort order = new Sort(sort,direction);
+        Pageable p = new Pageable(page, size, order);
+        model.addAttribute("resume", "Le actualités sur l'intelligence artificielle sur ce site");
+        model.addAttribute("titre", "IA NEWS");
+        V_article art = new V_article();
+        art.setEtat(1);
+        HashMap<String,Object> hash = art.getArticleFront(size, p);
+        model.addAttribute("article",hash.get("article"));
+        model.addAttribute("pageCount", hash.get("nbPage"));
+        model.addAttribute("page", page);
+        return "articles";
     }
 }
