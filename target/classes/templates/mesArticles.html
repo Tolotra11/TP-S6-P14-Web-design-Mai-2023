@@ -1,0 +1,24 @@
+<th:block th:include="HeadAdmin">
+</th:block>
+     <div th:include="sidebar"></div>   
+     <div class="body-wrapper">
+        <div th:include="HeaderBO"></div>  
+        <div class="container-fluid">
+            <div class="dashboard-sf" style="margin-left: 35px;">
+                <div class="memo-container container">
+                    <div class="heading-sf row">
+                        <div class="page-name col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h1>Articles</h1>
+                        </div>
+                    </div>
+               <th:block th:each="art : ${article}">
+                    <a th:href="${'/previsualisation?idArticle='+art.id}"><h3 th:text="${art.titre}"></h3></a>
+                    <p th:text="${art.resume}"></p>
+                    <hr/>
+               </th:block>
+            </div>
+         </div> 
+     </div>
+    <th:block th:include="BottomAdmin">
+</th:block>
+

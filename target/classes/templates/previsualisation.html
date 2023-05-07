@@ -1,0 +1,23 @@
+<th:block th:include="HeadAdmin"></th:block>
+<div th:include="sidebar"></div>
+    <div class="body-wrapper">
+        <div th:include="HeaderBO"></div>     
+        <div class="container-fluid">
+            <div class="dashboard-sf" style="margin-left: 35px;">
+                <a th:if="${article.etat == 0}" th:href="'/confirm?idArticle='+${article.id}" ><button class="btn btn-success">Confirmer</button></a>
+                <a th:href="'/modif?idArticle='+${article.id}"><button class="btn btn-primary">Modifier</button></a>
+                <div style="margin-top: 5%;" class="content-page">
+                        <div class="page-name col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h1 th:text="${article.titre}" id="titre"></h1>
+                            <p><img id="imageTitre" th:src="'/uploads/images/'+${article.image.image}" width="800px" height="460px"></p>
+                        </div>
+                    <div class="contenue">
+                        <th:block th:utext="${article.contenu}">
+                        </th:block>
+                    </div>
+                    
+            </div>
+        </div>
+        </div>
+    </div>
+    <th:block th:include="BottomAdmin"></th:block>

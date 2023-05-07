@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head lang="fr">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+        <link rel="stylesheet" th:href="@{/assets/front/fonts/stylesheet.css}">
+        <link rel="stylesheet" th:href="@{/assets/front/css/style.css}">
+        <link rel="stylesheet" th:href="@{/assets/front/css/bootstrap.css}">
+        <link rel="stylesheet" th:href="@{/assets/front/css/sidebar.css}">
+        <title>Article</title>
+    </head>
+    <body>    
+    <div th:include="sidebar"></div>    
+      <div class="dashboard-sf" style="margin-left: 35px;">
+            <div class="memo-container container">
+                <div class="heading-sf row">
+                    <div class="page-name col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h1>Articles</h1>
+                    </div>
+                </div>
+           <th:block th:each="art : ${article}">
+                <a th:href="${'/articles/'+art.getTitleInUrl()+'-'+art.id}"><h3 th:text="${art.titre}"></h3></a>
+                <p th:text="${art.resume}"></p>
+                <hr/>
+           </th:block>
+        </div>
+
+    </body>
+</html>

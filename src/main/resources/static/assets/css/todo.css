@@ -1,0 +1,101 @@
+.todo-sf{
+    position: relative;
+    width: 60%;
+    height: max-content;
+    background-color:rgb(165, 165, 46);
+
+}
+
+.todo{
+    margin-top: 50px;
+}
+
+.todo .main-task-contain{
+    background-color:burlywood;
+}
+
+.todo .main-task-contain{
+    background-color: blueviolet;
+}
+
+.todo .task .check-icon{
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    margin-right: 16px;
+}
+
+.todo .task-details .check-icon{
+    margin-right: 18px;
+}
+
+.todo .main-task .check-icon{
+    width: 26px;
+    height: 26px;
+    margin-right: 0px;
+}
+
+.todo .task p{
+    margin: 0px;
+}
+
+.todo .task{
+    background-color: #75757552;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 30px;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    float: right;
+}
+.todo .task form{
+
+    width: 26px;
+    height: 26px;
+    background-color: chocolate;
+}
+
+.todo .task{
+    background-color: blanchedalmond;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.todo .sub-task {
+    width: 90%;
+    opacity: 80%;
+    padding: 15px;
+}
+
+.todo .task-details{
+    width: 80%;
+    opacity: 70%;
+    padding: 10px;
+}
+
+.todo .sub-task-contain form input{
+    border: 0px;
+    margin-bottom: 10px;
+    transform: translateX(40%);
+}
+
+.todo .sub-task-contain form .mybutton{
+    color: aliceblue;
+    background-color: #E47B8A;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 20px;
+}
+
+@media (max-width:767px) {
+    .todo-sf{
+        width: 75%;
+        left: 80px;
+    }
+}

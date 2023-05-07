@@ -1,0 +1,88 @@
+.dashboard-sf{
+    position: relative;
+    width: 60%;
+    height: max-content;
+    background-color:beige;
+    left: 310px;
+}
+
+.memo .memo-container{
+    height: max-content;
+    overflow: scroll;
+}
+
+.memo .memo-container .memo-thbm-container{
+    display: inline-flex;
+}
+
+.memo .memo-container .memo-thmb{
+    height: 400px;
+    width: 300px;
+    background-color: blueviolet;
+    padding: 10px;
+    margin: 10px;
+}
+
+.memo .memo-container .memo-thmb .title{
+    overflow: hidden;
+    max-width: 270px;
+    max-height: 77px;
+}
+
+.memo .memo-container .memo-thmb .text{
+    overflow: hidden;
+    max-width: 250px;
+    max-height: 150px;
+}
+
+.memo .memo-container .memo-thmb .pin-icon{
+    width: 30px;
+    height: 30px;
+    background-color: chartreuse;
+}
+
+.todo .todo-thmb p{
+    margin: 0px;
+}
+
+.todo .todo-thmb{
+    background-color: crimson;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px;
+    margin-top: 5px;
+}
+
+.todo .todo-thmb .icon-done{
+    width: 26px;
+    height: 26px;
+    background-color: yellow;
+}
+
+.events .event-thmb{
+    margin-top: 10px;
+}
+
+.events .event-thmb .dates{
+    text-align: end;
+}
+
+.events .event-thmb .details{
+    background-color: cornflowerblue;
+}
+
+.events .event-thmb p{
+    margin: 0px;
+}
+
+.events .event-thmb hr{
+    margin: 0px;
+}
+
+@media (max-width:767px) {
+    .dashboard-sf{
+        width: 75%;
+        left: 80px;
+    }
+}

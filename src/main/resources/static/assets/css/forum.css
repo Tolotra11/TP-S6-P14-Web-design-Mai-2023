@@ -1,0 +1,65 @@
+.forum-sf{
+    position: relative;
+    width: 60%;
+    height: max-content;
+    background-color:rgb(165, 165, 46);
+    left: 310px;
+}
+
+.question-containers{
+    background-color: antiquewhite;
+}
+
+.question-containers .creds{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recent .profile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.question-containers .show-button{
+    width: 26px;
+    height: 26px;
+    background-color: brown;
+}
+
+.question-containers .profile-pic{
+    width: 30px;
+    height: 30px;
+    background-color: aqua;
+}
+
+.question-containers .profile .text p{
+    margin: 0px;
+}
+
+.question-containers .text-question{
+    padding: 10px;
+}
+
+.answer-container{
+    background-color: aquamarine;
+    padding: 10px;
+}
+
+.answer-container .answer{
+    margin: 10px;
+}
+
+.answer-container .confirme-button{
+    width: 30px;
+    height: 30px;
+    background-color: cornflowerblue;
+}
+
+@media (max-width:767px) {
+    .forum-sf{
+        width: 75%;
+        left: 80px;
+    }
+}

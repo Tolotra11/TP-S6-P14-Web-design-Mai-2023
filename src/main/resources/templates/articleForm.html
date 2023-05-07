@@ -1,0 +1,57 @@
+    <th:block th:include="HeadAdmin">
+    </th:block>
+    <!-- public String createArticle(@RequestParam(value = "titre") String titre,@RequestParam(value = "contenu") String contenu,@RequestParam(value = "categorie") int categorie,@RequestParam(value = "resume") String resume,Model model) throws Exception{ -->
+        <div th:include="sidebar"></div>
+        <div class="body-wrapper">
+            <div th:include="HeaderBO"></div>
+      <div class="container-fluid">
+      <!--  Header End -->
+            <div class="dashboard-sf" style="margin-left: 35px;">
+                <div class="memo-container container">
+                    <div class="heading-sf row">
+                        <div class="page-name col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h1>Ajouter un nouveau article</h1>
+                        </div>
+                    </div>
+                <form action = "/articles" method="post" class="formFiche" enctype="multipart/form-data">
+                    <label for="titre" class="form-label">Titre:</label>
+                    <br/>
+                    <input type="text"  name ="titre" class="form-control"  required />
+                    <br/>
+                    <label for="categorie" class="form-label">Categorie:</label>
+                    <br/>
+                    <select name="categorie" id="categorie" class="form-control" >
+                        <option value="0">Categorie</option>
+                        <option th:each="cat : ${categorie}" th:value="${cat.id}" th:text="${cat.nomCat}"></option>
+                    </select>
+                    <br/>
+                    <label for="image" class="form-label">Image:</label>
+                    <br/>
+                    <input type="file" name="image" class="form-control" />
+                    <br/>
+                    <label for="resume" class="form-label">Resume:</label>
+                    <br/>
+                    <textarea id="resume" name="resume" class="form-control" >
+                    </textarea>
+                    <label for="contenue" class="form-label">Contenu:</label>
+                    <br/>
+                    <textarea id="contenue" name="contenu" class="form-control" >
+                    </textarea>
+                    <br/>
+                    <input type="submit" value="Confirmer"  class="btn btn-primary" />
+                    <br/>
+                    <p th:if="${message!=null}" th:text="${message}"></p>
+                </form>
+                <p style="text-align: center;color: green;" th:text="${success}"></p>
+                <p style="text-align: center;color: red;" th:text="${error}"></p>
+            </div>
+        </div>
+        </div>
+    </div>
+        <script>
+            console.log(document.querySelector("#contenue"));
+            ClassicEditor.create(document.querySelector("#contenue"));
+        </script>
+<th:block th:include="BottomAdmin">
+
+</th:block>

@@ -1,0 +1,55 @@
+<th:block th:include="HeadAdmin"></th:block>
+<div th:include="sidebar"></div>
+    <div class="body-wrapper">
+        <div th:include="HeaderBO"></div>     
+        <div class="container-fluid">
+        <div class="dashboard-sf" style="margin-left: 35px;">
+            <div class="memo-container container">
+                <div class="heading-sf row">
+                    <div class="page-name col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                     
+                        <h2>Modifier un article</h2>
+                    </div>
+                </div>
+            <form action = "/modif" method="post" class="formFiche" enctype="multipart/form-data">
+                <input type="hidden" name="idArticle" th:value="${article.id}"/>
+                <label for="titre" class="form-label">Titre:</label>
+                <br/>
+                <input type="text" name ="titre" th:value="${article.titre}" class="form-control" required />
+                <br/>
+                <label for="categorie" class="form-label">Categorie:</label>
+                <br/>
+                <select name="categorie" id="categorie" class="form-control">
+                    <option th:value="${article.categorieId}" th:text="${article.nomCat}"></option>
+                    <option th:each="cat : ${categorie}" th:value="${cat.id}" th:text="${cat.nomCat}"></option>
+                </select>
+                <br/>
+                <label class="form-label">Ancien image</label>
+                <p>
+                    <img th:src="'uploads/images/'+${article.image.image}" width="250" height="150"/>
+                </p>
+                <label for="image" class="form-label">Modifier l'image:</label>
+                <br/>
+                <input type="file" name="image" class="form-control"/>
+                <br/>
+                <label for="resume" class="form-label">Resume:</label>
+                <br/>
+                <textarea id="resume" name="resume" th:text="${article.resume}" class="form-control">
+                </textarea>
+                <label for="contenue">Contenue:</label>
+                <br/>
+                <textarea id="contenue" name="contenu" th:utext="${article.contenu}" >
+                </textarea>
+                <br/>
+                <input type="submit" value="Confirmer" class="btn btn-primary"/>
+                <br/>
+                <p th:if="${message!=null}" th:text="${message}"></p>
+            </form>
+            <p style="text-align: center;color: green;" th:text="${success}"></p>
+            <p style="text-align: center;color: red;" th:text="${error}"></p>
+        </div>
+        <script>
+            console.log(document.querySelector("#contenue"));
+            ClassicEditor.create(document.querySelector("#contenue"));
+        </script>
+<th:block th:include="HeadAdmin"></th:block>
