@@ -24,7 +24,7 @@ import java.util.List;
 
 public class DriveServiceImpl{
 
-    private static final String APPLICATION_NAME = "IASite";
+    private static final String APPLICATION_NAME = "Mini project S6";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
     private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE_FILE);
