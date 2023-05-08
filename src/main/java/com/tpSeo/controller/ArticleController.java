@@ -150,9 +150,9 @@ public class ArticleController {
     }
 //---------------------------Front Office--------------------------------------
     @GetMapping("/articles")
-    public String listeArticle(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size, @RequestParam(defaultValue = "datePublication") String sort,@RequestParam(defaultValue = "DESC") String direction,Model model) throws Exception{
+    public String listeArticle(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int size, @RequestParam(defaultValue = "datePublication") String sort,@RequestParam(defaultValue = "DESC") String direction,Model model) throws Exception{
         Sort order = new Sort(sort,direction);
-        Pageable p = new Pageable(page, size, order);
+        Pageable p = new Pageable((page*size), size, order);
         model.addAttribute("resume", "Le actualités sur l'intelligence artificielle sur ce site");
         model.addAttribute("titre", "Les actualités sur l'IA");
         V_article art = new V_article();
@@ -165,7 +165,7 @@ public class ArticleController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(defaultValue = "") String motCle, @RequestParam(defaultValue = "") String debut, @RequestParam(defaultValue = "") String fin, @RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size, @RequestParam(defaultValue = "datePublication") String sort,@RequestParam(defaultValue = "DESC") String direction,Model model) throws Exception{
+    public String search(@RequestParam(defaultValue = "") String motCle, @RequestParam(defaultValue = "") String debut, @RequestParam(defaultValue = "") String fin, @RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int size, @RequestParam(defaultValue = "datePublication") String sort,@RequestParam(defaultValue = "DESC") String direction,Model model) throws Exception{
         model.addAttribute("page", page);
         model.addAttribute("resume", "Recherchez un article sur l'intelligence artificielle");
         model.addAttribute("titre", "Les actualités sur l'IA");
@@ -178,7 +178,7 @@ public class ArticleController {
         }
         else{
             Sort order = new Sort(sort,direction);
-            Pageable p = new Pageable(page, size, order);
+            Pageable p = new Pageable((page*size), size, order);
             V_article art = new V_article();
             art.setEtat(1);    
             HashMap<String,Object> hash = art.search(motCle, debut, fin, size, p);
