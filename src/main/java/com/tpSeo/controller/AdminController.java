@@ -30,6 +30,7 @@ public class AdminController {
         }
         return "redirect:/";
     }
+    
     @GetMapping("/logout")
     public String deconnect(HttpSession session){
         session.invalidate();
