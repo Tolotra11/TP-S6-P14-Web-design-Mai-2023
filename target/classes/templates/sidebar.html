@@ -6,6 +6,9 @@
         function article(){
             window.location.href = "/articlesAdmin";
         }
+        function logout(){
+            window.location.href = "/logout";
+        }
     </script>
  <!-- Sidebar Start -->
  <aside class="left-sidebar">
@@ -38,6 +41,15 @@
             <span class="hide-menu">Articles</article></span>
             </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" onclick="logout()"  aria-expanded="false">
+            <span>
+                <i class="ti ti-logout"></i>
+            </span>
+           <span class="hide-menu">Se deconnecter</article></span>
+            </a>
+          </li>
+          
         </ul>
       </nav>
       <!-- End Sidebar navigation -->

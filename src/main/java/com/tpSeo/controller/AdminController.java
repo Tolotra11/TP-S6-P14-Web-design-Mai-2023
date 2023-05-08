@@ -1,7 +1,7 @@
 package com.tpSeo.controller;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,5 +29,10 @@ public class AdminController {
             return "redirect:/login?error="+e.getMessage();
         }
         return "redirect:/";
+    }
+    @GetMapping("/logout")
+    public String deconnect(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
     }
 }
