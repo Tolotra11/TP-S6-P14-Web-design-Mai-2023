@@ -146,13 +146,13 @@ public class Article extends ObjectBDD{
             System.out.println("idA:"+this.getAdminId());
             Image im = new Image();
             im.setArticleId(id);
-            im.setImage(filename);
-            im.setDateImage(Timestamp.valueOf(LocalDateTime.now()));
-            System.out.println("ato");
-            im.insert(con);
+        
            // if (Util.isImage(new File(filename))) {
                 try {
-                    Util.createImage(image, "uploads/images");
+                    im.setImage(Util.createImage(image));
+                    im.setDateImage(Timestamp.valueOf(LocalDateTime.now()));
+                    System.out.println("ato");
+                    im.insert(con);
                 } catch (IOException e) {
                     e.printStackTrace();
                     con.rollback();
@@ -189,13 +189,11 @@ public class Article extends ObjectBDD{
                 System.out.println("idA:"+this.getAdminId());
                 Image im = new Image();
                 im.setArticleId(this.id);
-                im.setImage(filename);
-                im.setDateImage(Timestamp.valueOf(LocalDateTime.now()));
-                System.out.println("ato");
-                im.insert(con);
                // if (Util.isImage(new File(filename))) {
                     try {
-                        Util.createImage(image, "uploads/images");
+                        im.setImage(Util.createImage(image));
+                        im.setDateImage(Timestamp.valueOf(LocalDateTime.now()));
+                        im.insert(con);
                     } catch (IOException e) {
                         e.printStackTrace();
                         con.rollback();
