@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.HashMap;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import com.tpSeo.DAO.ObjectBDD;
 import com.tpSeo.DAO.Pageable;
 import com.tpSeo.Util.Slug;

@@ -148,6 +148,7 @@ public class ArticleController {
             return "redirect:/login";
         }
     }
+    
 //---------------------------Front Office--------------------------------------
     @GetMapping("/articles")
     public String listeArticle(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int size, @RequestParam(defaultValue = "datePublication") String sort,@RequestParam(defaultValue = "DESC") String direction,Model model) throws Exception{
