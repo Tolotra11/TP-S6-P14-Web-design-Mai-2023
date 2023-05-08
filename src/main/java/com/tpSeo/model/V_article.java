@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import com.tpSeo.DAO.ObjectBDD;
 import com.tpSeo.DAO.Pageable;
+import com.tpSeo.Util.Slug;
 import com.tpSeo.Util.Util;
 
 public class V_article extends ObjectBDD{
@@ -39,7 +40,7 @@ public class V_article extends ObjectBDD{
     
     public String getTitleInUrl() {
         if(this.titleInUrl == null){
-            titleInUrl = Util.slugify(this.titre);
+            titleInUrl = Slug.makeSlug(this.titre);
         }
         return titleInUrl;
     }

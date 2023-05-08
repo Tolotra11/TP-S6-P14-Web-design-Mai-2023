@@ -6,6 +6,7 @@
 package com.tpSeo.Util;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -21,6 +22,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -28,6 +30,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.api.client.http.InputStreamContent;
+import com.tpSeo.storage.DriveServiceImpl;
 
 
 
@@ -181,6 +186,45 @@ public class Util {
         } catch (Exception e) {
             throw e;
         }
+    }
+    public static String createImage(MultipartFile file) throws Exception {
+        String name = "";
+        String val = "";
+        try {
+            if (file.isEmpty()) {
+                throw new Exception("Photos is empty");
+            }
+            if (file != null && !file.getOriginalFilename().equalsIgnoreCase("")) {
+                name = file.getOriginalFilename();
+                if (!name.endsWith(".jpeg") && !name.endsWith(".JPEG")
+                        && !name.endsWith(".jpg") && !name.endsWith(".JPG")
+                        && !name.endsWith(".png") && !name.endsWith(".PNG")
+                        && !name.endsWith(".gif") && !name.endsWith(".GIF")
+                        && !name.endsWith(".BMP") && !name.endsWith(".bmp")
+                        && !name.endsWith(".tiff") && !name.endsWith(".TIFF")
+                        && !name.endsWith(".WEBP") && !name.endsWith(".webp")
+                        && !name.endsWith(".SVG") && !name.endsWith(".svg")) {
+                    throw new Exception("Veuillez saisir une image");
+                }
+    
+                // Upload le fichier dans Google Drive
+                DriveServiceImpl imp = new DriveServiceImpl();
+                com.google.api.services.drive.model.File fileMetadata = new com.google.api.services.drive.model.File();
+                fileMetadata.setName(file.getOriginalFilename());
+                fileMetadata.setParents(Collections.singletonList("1ep0h_jUJzRL30Vh_p1LmgF6vvfrdVM6Q"));
+                InputStreamContent mediaContent = new InputStreamContent(file.getContentType(),
+                        new BufferedInputStream(file.getInputStream()));
+                mediaContent.setLength(file.getSize());
+    
+                com.google.api.services.drive.model.File uploadedFile = imp.getDriveService().files().create(fileMetadata, mediaContent)
+                        .setFields("id, webContentLink, webViewLink").execute();
+                val = uploadedFile.getId();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return val;
     }
 }
 

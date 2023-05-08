@@ -9,7 +9,7 @@
                 <div style="margin-top: 5%;" class="content-page">
                         <div class="page-name col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <h1 th:text="${article.titre}" id="titre"></h1>
-                            <p><img id="imageTitre" th:src="'/uploads/images/'+${article.image.image}" width="800px" height="460px"></p>
+                            <p><img id="imageTitre" th:src="'https://drive.google.com/uc?id='+${article.image.image}" width="800px" height="460px"></p>
                         </div>
                     <div class="contenue">
                         <th:block th:utext="${article.contenu}">
