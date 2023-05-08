@@ -1,0 +1,66 @@
+<th:block th:include="HeadFO"></th:block> 
+<section class="section">
+   <div class="container">
+       <div class="row">
+           <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+               <div class="page-wrapper">
+                <div>
+                    <h3>Filtre</h3>
+                    <form method="get" action="/search">
+                        <input type="text" name="motCle" placeholder="Mot clé"  class="form-control" required/>
+                        <br/>
+                        <input type="date" name="debut" class="form-control"/> <div style="text-align: center;">à</div> <input type="date" name="fin" class="form-control"/>
+                        <br/>
+                        <input type="submit" value="Rechercher" class="btn btn-success"/>
+                    </form>
+                    <hr/>
+                </div>
+                   <div class="blog-top clearfix">
+                       <h4 class="pull-left">Resultats <a href="#"><i class="fa fa-rss"></i></a></h4>
+                   </div><!-- end blog-top -->
+                   <div class="blog-list clearfix">
+                       <th:block th:each="art : ${article}">
+                       <div class="blog-box row">
+                           <div class="col-md-4">
+                               <div class="post-media">
+                                   <a th:href="${'/articles/'+art.getTitleInUrl()+'-'+art.id}" title="">
+                                       <img th:src="'https://drive.google.com/uc?id='+${art.nomImage}" alt="" class="img-fluid">
+                                       <div class="hovereffect"></div>
+                                   </a>
+                               </div><!-- end media -->
+                           </div><!-- end col -->
+
+                           <div class="blog-meta big-meta col-md-8">
+                               <a th:href="${'/articles/'+art.getTitleInUrl()+'-'+art.id}" title=""><h4 th:text="${art.titre}"></h4></a>
+                               <p th:text="${art.resume}"></p>
+                               <small class="firstsmall" ><a class="bg-orange" href="#" th:text="${art.nomCat}" title="">Gadgets</a></small>
+                               <small th:text="${art.datePublication}"></small>
+                               <small th:text="'by '+${art.nom}+' '+${art.prenom}"></small>
+                           </div><!-- end meta -->
+                       </div><!-- end blog-box -->
+                       <hr class="invis">
+                       </th:block>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-md-12">
+               <nav aria-label="Page navigation">
+                   <ul class="pagination justify-content-start">
+                       <li class="page-item" th:if="${page+1 != 1}">
+                           <a class="page-link" th:href="'/search?page='+${page-1}+'&debut='+${debut}+'&fin='+${fin}+'motCle='+${motCle}">Précédent</a>
+                       </li>
+                       <th:block th:if="${pageCount!=0}" th:each="j: ${#numbers.sequence(1,pageCount)}">
+                           <li class="page-item"><a class="page-link" th:text="${j}" th:href="'/search?page='+${j-1}+'&debut='+${debut}+'&fin='+${fin}+'motCle='+${motCle}"></a></li>
+                       </th:block>
+                       <li class="page-item" th:if="${pageCount > page+1}">
+                           <a class="page-link" th:href="'/search?page='+${page+1}+'&debut='+${debut}+'&fin='+${fin}+'motCle='+${motCle}">Suivant</a>
+                       </li>
+                   </ul>
+               </nav>
+           </div><!-- end col -->
+       </div><!-- end row -->
+   </div>
+</section>
+<th:block th:include="FootFO"></th:block>

@@ -173,4 +173,39 @@ public class V_article extends ObjectBDD{
         }
         return hash;
     }
+    public HashMap<String,Object> search(String motcle, String debut, String fin,int size,Pageable page) throws Exception{
+        HashMap<String,Object> hash = new HashMap();
+        Connection con  = null;
+        String whereClause = " 1=1";
+        V_article article = new V_article();
+        int count = 0;
+        try{
+            con = Util.getConnection();
+            if(!motcle.equals("")){
+                whereClause += " AND (titre ilike '%"+motcle+"%' OR resume ilike '%"+motcle+"%' OR contenu ilike '%"+motcle+"%')";
+            }
+            if(!debut.equals("")){
+                if(!fin.equals("")){
+                    whereClause += " AND datePublication BETWEEN '"+debut+" 24:00:00' AND '"+fin+" 24:00:00'";
+                }
+                else{
+                    whereClause += " AND datePublication >='"+debut+" 24:00:00'";
+                }
+            }
+            else{
+                if(!fin.equals("")){
+                    whereClause += " AND datePublication <='"+fin+" 24:00:00'";
+                }
+            }
+            count = article.count(whereClause, con);
+            int pageCount = (int)Math.ceil((double)count/(double) size);
+            Object [] result = article.find(whereClause,page, con);
+            hash.put("article", result);
+            hash.put("pageCount",pageCount); 
+        }
+        catch(Exception e){
+            throw e;
+        }
+        return hash;
+    }
 }
