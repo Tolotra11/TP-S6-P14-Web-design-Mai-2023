@@ -76,7 +76,10 @@ public class ArticleController {
     public String detailArticle(@PathVariable("idArticle") int idArticle,Model model) throws Exception{
         V_article article = new V_article();
         article.setId(idArticle);
-        model.addAttribute("article", article.find(null)[0]);
+        V_article val = (V_article)article.find(null)[0];
+        model.addAttribute("resume", val.getResume());
+        model.addAttribute("titre", val.getTitre());
+        model.addAttribute("article", val);
         return "articleDetails";
     }
     @GetMapping("/")
@@ -149,7 +152,7 @@ public class ArticleController {
         Sort order = new Sort(sort,direction);
         Pageable p = new Pageable(page, size, order);
         model.addAttribute("resume", "Le actualités sur l'intelligence artificielle sur ce site");
-        model.addAttribute("titre", "IA NEWS");
+        model.addAttribute("titre", "Les actualités sur l'IA");
         V_article art = new V_article();
         art.setEtat(1);
         HashMap<String,Object> hash = art.getArticleFront(size, p);
