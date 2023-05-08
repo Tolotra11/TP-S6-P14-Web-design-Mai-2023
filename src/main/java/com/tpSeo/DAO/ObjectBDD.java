@@ -2,7 +2,6 @@ package com.tpSeo.DAO;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -197,7 +196,6 @@ public class ObjectBDD {
 
     //CHECK SI UN OBJET EST VIDE
     public boolean isEmpty(Connection con) throws Exception {
-        Field[] lField = this.getClass().getDeclaredFields();
         String[] col = this.columnName( nomDeTable, con);
         int counter = 0;
         for (String col1 : col) {
@@ -678,7 +676,18 @@ public class ObjectBDD {
         return valiny.toArray();
     }
     public Object[] find(Pageable pageable,Connection con) throws Exception {
-        String pagination = "1=1 ORDER BY "+pageable.getSort().getOrderBy()+" LIMIT "+pageable.getSize()+" OFFSET "+pageable.getPage();
+        String pagination = "1=1 ORDER BY "+pageable.getSort().getOrderBy()+" "+pageable.getSort().getDirection()+" LIMIT "+pageable.getSize()+" OFFSET "+pageable.getPage();
+        Object [] result = null;
+        try{
+            result = this.find(con,pagination);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        return result;
+    }
+    public Object[] find(String whereClause,Pageable pageable,Connection con) throws Exception {
+        String pagination = whereClause+" ORDER BY "+pageable.getSort().getOrderBy()+" "+pageable.getSort().getDirection()+" LIMIT "+pageable.getSize()+" OFFSET "+pageable.getPage();
         Object [] result = null;
         try{
             result = this.find(con,pagination);

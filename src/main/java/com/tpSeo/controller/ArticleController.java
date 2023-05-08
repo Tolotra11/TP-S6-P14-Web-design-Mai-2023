@@ -2,6 +2,7 @@ package com.tpSeo.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ import com.tpSeo.model.V_article;
 
 @Controller
 public class ArticleController {
+//--------------------------BACK OFFICE----------------------------------------------------------------------
     @PostMapping("/articles")
     public String createArticle(HttpSession session,@RequestParam(value = "titre") String titre,@RequestParam(value = "contenu") String contenu,@RequestParam(value = "categorie") int categorie,@RequestParam(value = "resume") String resume,@RequestParam MultipartFile image,Model model) throws Exception{
         if(Util.isLog(session, "idAdmin")){
@@ -148,9 +150,9 @@ public class ArticleController {
     }
 //---------------------------Front Office--------------------------------------
     @GetMapping("/articles")
-    public String listeArticle(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size, @RequestParam(defaultValue = "datePublication") String sort,@RequestParam(defaultValue = "DESC") String direction,Model model) throws Exception{
+    public String listeArticle(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int size, @RequestParam(defaultValue = "datePublication") String sort,@RequestParam(defaultValue = "DESC") String direction,Model model) throws Exception{
         Sort order = new Sort(sort,direction);
-        Pageable p = new Pageable(page, size, order);
+        Pageable p = new Pageable((page*size), size, order);
         model.addAttribute("resume", "Le actualités sur l'intelligence artificielle sur ce site");
         model.addAttribute("titre", "Les actualités sur l'IA");
         V_article art = new V_article();
@@ -160,5 +162,29 @@ public class ArticleController {
         model.addAttribute("pageCount", hash.get("nbPage"));
         model.addAttribute("page", page);
         return "articles";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(defaultValue = "") String motCle, @RequestParam(defaultValue = "") String debut, @RequestParam(defaultValue = "") String fin, @RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int size, @RequestParam(defaultValue = "datePublication") String sort,@RequestParam(defaultValue = "DESC") String direction,Model model) throws Exception{
+        model.addAttribute("page", page);
+        model.addAttribute("resume", "Recherchez un article sur l'intelligence artificielle");
+        model.addAttribute("titre", "Les actualités sur l'IA");
+        model.addAttribute("motCle", motCle);
+        model.addAttribute("debut", debut);
+        model.addAttribute("fin",fin);
+        if(motCle.equals("") && debut.equals("") && fin.equals("")){
+            model.addAttribute("article", new ArrayList<>());
+            model.addAttribute("pageCount", 1);
+        }
+        else{
+            Sort order = new Sort(sort,direction);
+            Pageable p = new Pageable((page*size), size, order);
+            V_article art = new V_article();
+            art.setEtat(1);    
+            HashMap<String,Object> hash = art.search(motCle, debut, fin, size, p);
+            model.addAttribute("article",hash.get("article"));
+            model.addAttribute("pageCount", hash.get("pageCount"));
+        }
+        return"search";
     }
 }
